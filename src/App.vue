@@ -1,55 +1,47 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script>
 import axios from 'axios'
-import { ref } from 'vue'
-const productList = ref()
 
-axios.get('https://fakestoreapi.com/products').then((response) => {
-  console.log(response.data)
-  productList.value = response.data
-})
+export default {
+  data() {
+    return {
+      products: []
+    }
+  },
+
+  mounted() {
+    axios.get('https://fakestoreapi.com/products').then((res) => (this.products = res.data))
+  }
+}
+</script>
+
+<script setup>
+import MyHeader from './components/MyHeader.vue'
+import ProductItem from './components/ProductItem.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <my-header></my-header>
+  <section class="wrapper__item">
+    <ul class="products">
+      <product-item
+        v-for="list in products"
+        :key="list.id"
+        :title="list.title"
+        :description="list.description"
+        :image="list.image"
+        :price="list.price"
+        :count="list.rating.count"
+        :rating="list.rating.rate"
+      ></product-item>
+    </ul>
+  </section>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+<style scoped lang="scss">
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 120px;
 }
 </style>
