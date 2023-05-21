@@ -1,6 +1,14 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
+import axios from 'axios'
+import { ref } from 'vue'
+const productList = ref()
+
+axios.get('https://fakestoreapi.com/products').then((response) => {
+  console.log(response.data)
+  productList.value = response.data
+})
 </script>
 
 <template>
