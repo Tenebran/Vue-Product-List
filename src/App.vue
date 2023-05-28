@@ -1,5 +1,6 @@
 <script>
-import axios from 'axios'
+import ProductList from './components/ProductList.vue'
+import axios from './api/api'
 
 export default {
   data() {
@@ -9,39 +10,18 @@ export default {
   },
 
   mounted() {
-    axios.get('https://fakestoreapi.com/products').then((res) => (this.products = res.data))
+    axios.get(`products`).then((res) => (this.products = res.data))
   }
 }
 </script>
 
 <script setup>
 import MyHeader from './components/MyHeader.vue'
-import ProductItem from './components/ProductItem.vue'
 </script>
 
 <template>
   <my-header></my-header>
-  <section class="wrapper__item">
-    <ul class="products">
-      <product-item
-        v-for="list in products"
-        :key="list.id"
-        :title="list.title"
-        :description="list.description"
-        :image="list.image"
-        :price="list.price"
-        :count="list.rating.count"
-        :rating="list.rating.rate"
-      ></product-item>
-    </ul>
-  </section>
+  <product-list :products="products"></product-list>
 </template>
 
-<style scoped lang="scss">
-.products {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin-top: 120px;
-}
-</style>
+<style scoped lang="scss"></style>

@@ -1,15 +1,15 @@
 <template>
   <li class="products__list">
     <img :src="props.image" alt="App" class="products__img" />
-    <h3 class="products__title">{{ props.title }}}</h3>
+    <h3 class="products__title">{{ props.title }}</h3>
     <p class="products__text">{{ props.description }}</p>
     <div class="products-wrapper">
       <div class="products__button__info">
         <div class="material-icons products__button__icon">info</div>
         <div class="products__button__content">
-          В наличии: {{ props.count }} шт. <br />
+          В наличии: {{ props.rating.count }} шт. <br />
           Цена: {{ props.price }}$ <br />
-          рейтин: {{ props.rating }}
+          рейтин: {{ props.rating.rate }}
         </div>
       </div>
       <button class="products__button">Buy</button>
